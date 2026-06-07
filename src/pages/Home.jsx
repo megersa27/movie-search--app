@@ -1,5 +1,7 @@
+import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 
 function Home() {
   const [movieName, setMovieName] = useState("");
@@ -55,22 +57,43 @@ function Home() {
 
   return (
     <div className="both-parents">
+      <Navbar />
+      <section className="hero">
+
+  <h1>
+    Discover Your Favorite Movies
+  </h1>
+
+  <p>
+    Search millions of movies and explore details.
+  </p>
+
+</section>
+
       <div className="container">
         <h1>Megersa Movie Search App</h1>
 
-        <input
-          type="text"
-          placeholder="Search Movie"
-          value={movieName}
-          onChange={(e) =>
-            setMovieName(e.target.value.toUpperCase())
-          }
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              searchMovies();
-            }
-          }}
-        />
+        <div className="search-box">
+
+  <input
+    type="text"
+    placeholder="Search Movies..."
+    value={movieName}
+    onChange={(e) =>
+      setMovieName(e.target.value.toUpperCase())
+    }
+    onKeyDown={(e) => {
+      if (e.key === "Enter") {
+        searchMovies();
+      }
+    }}
+  />
+
+  <button onClick={searchMovies}>
+    🔍 Search
+  </button>
+
+</div>
 
         <button
           disabled={!movieName}
@@ -96,6 +119,9 @@ function Home() {
             ? "Search Results"
             : "Popular Movies"}
         </h2>
+        <h3>
+  Movies Found: {movies.length}
+</h3>
 
         {loading && <h3>Loading...</h3>}
 
