@@ -1,7 +1,9 @@
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import SearchBar from "../components/SearchBar";
+import Footer from "../components/Footer";
+import MovieCard from "../components/MovieCard";
 
 function Home() {
   const [movieName, setMovieName] = useState("");
@@ -19,13 +21,13 @@ function Home() {
       setError("");
 
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${movieName}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${movieName}`,
       );
 
       const data = await response.json();
 
       setMovies(data.results || []);
-    } catch (err) {
+    } catch {
       setError("Failed to search movies.");
     } finally {
       setLoading(false);
@@ -38,13 +40,13 @@ function Home() {
       setError("");
 
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
+        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`,
       );
 
       const data = await response.json();
 
       setMovies(data.results || []);
-    } catch (err) {
+    } catch {
       setError("Failed to load movies.");
     } finally {
       setLoading(false);
@@ -58,49 +60,21 @@ function Home() {
   return (
     <div className="both-parents">
       <Navbar />
+
       <section className="hero">
+        <h1>Discover Your Favorite Movies</h1>
 
-  <h1>
-    Discover Your Favorite Movies
-  </h1>
-
-  <p>
-    Search millions of movies and explore details.
-  </p>
-
-</section>
+        <p>Search millions of movies and explore details.</p>
+      </section>
 
       <div className="container">
         <h1>Megersa Movie Search App</h1>
 
-        <div className="search-box">
-
-  <input
-    type="text"
-    placeholder="Search Movies..."
-    value={movieName}
-    onChange={(e) =>
-      setMovieName(e.target.value.toUpperCase())
-    }
-    onKeyDown={(e) => {
-      if (e.key === "Enter") {
-        searchMovies();
-      }
-    }}
-  />
-
-  <button onClick={searchMovies}>
-    🔍 Search
-  </button>
-
-</div>
-
-        <button
-          disabled={!movieName}
-          onClick={searchMovies}
-        >
-          Search
-        </button>
+        <SearchBar
+          movieName={movieName}
+          setMovieName={setMovieName}
+          searchMovies={searchMovies}
+        />
 
         {movieName ? (
           <p>Searching for: {movieName}</p>
@@ -110,62 +84,29 @@ function Home() {
 
         <p>Characters: {movieName.length}</p>
 
-        {movieName.length > 10 && (
-          <p>Long title</p>
-        )}
+        {movieName.length > 10 && <p>Long title</p>}
 
-        <h2>
-          {movieName
-            ? "Search Results"
-            : "Popular Movies"}
-        </h2>
-        <h3>
-  Movies Found: {movies.length}
-</h3>
+        <h2>{movieName ? "Searched Results" : "Popular Movies"}</h2>
+
+        <h3>Movies Found: {movies.length}</h3>
 
         {loading && <h3>Loading...</h3>}
 
         {error && <p>{error}</p>}
 
-        {!loading && movies.length === 0 && (
-          <p>No movies found</p>
-        )}
+        {!loading && movies.length === 0 && <p>No movies found</p>}
 
         <div className="movie-list">
           {movies.map((movie) => (
-            <div
-              className="movie-card"
-              key={movie.id}
-            >
-              {movie.poster_path && (
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                />
-              )}
-
-              <Link
-                to={`/movie/${movie.id}`}
-                className="movie-link"
-              >
-                <h3>{movie.title}</h3>
-              </Link>
-
-              <p>⭐ {movie.vote_average}</p>
-
-              <p>
-                Release Date:
-                {" "}
-                {movie.release_date}
-              </p>
-            </div>
-          ))}
+  <MovieCard
+    key={movie.id}
+    movie={movie}
+  />
+))}
         </div>
       </div>
 
-      <footer className="footer">
-        Built with React by Megersa
-      </footer>
+      <Footer />
     </div>
   );
 }
