@@ -1,7 +1,9 @@
+import { APP_NAME } from "../constants";
+
 function Navbar() {
   return (
     <nav className="navbar">
-      <h2>🎬 MovieHub</h2>
+      <h2>🎬 {APP_NAME}</h2>
 
       <ul>
         <li>Home</li>
@@ -11,5 +13,4 @@ function Navbar() {
     </nav>
   );
 }
-
-export default Navbar;
+export default Navbar

@@ -163,3 +163,16 @@ body {
     font-size: 2rem;
   }
 }
+.no-poster {
+  height: 320px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 15px;
+
+  background: rgba(255,255,255,0.1);
+
+  text-align: center;
+}

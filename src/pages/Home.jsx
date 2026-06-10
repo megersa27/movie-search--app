@@ -4,58 +4,27 @@ import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Footer from "../components/Footer";
 import MovieCard from "../components/MovieCard";
+import useMovies from "../hooks/useMovies";
 
 function Home() {
   const [movieName, setMovieName] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  
+  const {
+  movies,
+  loading,
+  error,
+  searchMovies,
+  getPopularMovies
+} = useMovies();
 
-  const apiKey = "e914c768c56095d54192f98fa3357816";
+  const apiKey =
+  import.meta.env.VITE_TMDB_API_KEY;
 
-  const searchMovies = async () => {
-    if (!movieName.trim()) return;
-
-    try {
-      setLoading(true);
-      setError("");
-
-      const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${movieName}`,
-      );
-
-      const data = await response.json();
-
-      setMovies(data.results || []);
-    } catch {
-      setError("Failed to search movies.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getPopularMovies = async () => {
-    try {
-      setLoading(true);
-      setError("");
-
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`,
-      );
-
-      const data = await response.json();
-
-      setMovies(data.results || []);
-    } catch {
-      setError("Failed to load movies.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  
+ 
   useEffect(() => {
-    getPopularMovies();
-  }, []);
+  getPopularMovies();
+}, []);
 
   return (
     <div className="both-parents">
@@ -71,10 +40,12 @@ function Home() {
         <h1>Megersa Movie Search App</h1>
 
         <SearchBar
-          movieName={movieName}
-          setMovieName={setMovieName}
-          searchMovies={searchMovies}
-        />
+  movieName={movieName}
+  setMovieName={setMovieName}
+  searchMovies={() =>
+    searchMovies(movieName)
+  }
+/>
 
         {movieName ? (
           <p>Searching for: {movieName}</p>

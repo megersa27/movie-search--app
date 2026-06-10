@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
+import imageUrl from "../utils/imageUrl";
 
 function MovieCard({ movie }) {
   return (
     <div className="movie-card">
 
-      {movie.poster_path && (
+      {movie.poster_path ? (
         <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          src={imageUrl(movie.poster_path)}
           alt={movie.title}
         />
+      ) : (
+        <div className="no-poster">
+          No Poster Available
+        </div>
       )}
 
       <Link
@@ -18,19 +23,14 @@ function MovieCard({ movie }) {
         <h3>{movie.title}</h3>
       </Link>
 
-      <p>
-        ⭐ {movie.vote_average}
-      </p>
+      <p>⭐ {movie.vote_average}</p>
 
-      {
-        movie.vote_average >= 8 &&
+      {movie.vote_average >= 8 && (
         <p>⭐ Top Rated</p>
-      }
+      )}
 
       <p>
-        Release Date:
-        {" "}
-        {movie.release_date}
+        Release Date: {movie.release_date}
       </p>
 
     </div>
