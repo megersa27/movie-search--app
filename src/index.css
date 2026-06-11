@@ -17,9 +17,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 20px 50px;
-
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
 }
@@ -32,6 +30,7 @@ body {
 
 .navbar li {
   cursor: pointer;
+  color: white;
 }
 
 .hero {
@@ -175,4 +174,39 @@ body {
   background: rgba(255,255,255,0.1);
 
   text-align: center;
+}
+.movie-card button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.movie-card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+.back-home {
+  display: inline-block;
+  margin: 15px 0;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back-home:hover {
+  text-decoration: underline;
 }
