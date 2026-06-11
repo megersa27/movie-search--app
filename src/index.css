@@ -210,3 +210,30 @@ body {
 .back-home:hover {
   text-decoration: underline;
 }
+.dark {
+  background: #0f172a;
+  color: white;
+  min-height: 100vh;
+}
+
+.light {
+  background: #f8fafc;
+  color: #111827;
+  min-height: 100vh;
+}
+.dark .navbar {
+  background:
+    rgba(255,255,255,.05);
+}
+
+.light .navbar {
+  background:
+    rgba(0,0,0,.05);
+}
+.light .movie-card {
+  background:
+    rgba(0,0,0,.08);
+}
+.light button {
+  color: black;
+}

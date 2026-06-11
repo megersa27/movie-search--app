@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import { APP_NAME } from "../constants";
+import {useContext} from "react";
+import {ThemeContext} from "../context/ThemeContext";
 
 function Navbar() {
+  const {
+  theme,
+  toggleTheme
+} = useContext(
+  ThemeContext
+);
+
 
   const favorites =
     JSON.parse(
@@ -26,6 +35,15 @@ function Navbar() {
     </Link>
   </li>
 </ul>
+<button
+  onClick={toggleTheme}
+>
+  {
+    theme === "dark"
+      ? "☀️ Light"
+      : "🌙 Dark"
+  }
+</button>
 
     </nav>
   );
